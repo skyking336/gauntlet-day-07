@@ -18,10 +18,11 @@ TEST_CASE("adding an item raises the count") {
     CHECK(inv.count() == 1);
 }
 
-TEST_CASE("a new inventory starts empty") {
+TEST_CASE("has() finds an added item and rejects a missing one") {
     Inventory inv;
-    REQUIRE(inv.count() == 0);       // REQUIRE aborts the case; the line below is meaningless if this fails
-    CHECK_FALSE(inv.has("potion"));  // CHECK reports and continues
+    inv.add("potion");
+    CHECK(inv.has("potion"));        
+    CHECK_FALSE(inv.has("sword"));   
 }
 
 TEST_CASE("a inventory is added then remove, so ends with 0 count") {
@@ -32,11 +33,11 @@ TEST_CASE("a inventory is added then remove, so ends with 0 count") {
     CHECK_FALSE(inv.has("potion"));  // CHECK reports and continues
 }
 
-
-TEST_CASE("removing a missing item is a no-op: count unchanged, other items untouched (2 assertions).") {
+TEST_CASE("removing a missing item is a no-op") {
     Inventory inv;
     inv.add("potion");
+    inv.add("armor");
     inv.remove("weapon");
-    REQUIRE(inv.count() == 1);       // REQUIRE aborts the case; the line below is meaningless if this fails
-    CHECK_FALSE(inv.has("potion"));  // CHECK reports and continues
+    REQUIRE(inv.count() == 2);     // 1. count unchanged
+    CHECK(inv.has("potion"));      // 2. other items untouched
 }

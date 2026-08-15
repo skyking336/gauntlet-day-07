@@ -11,8 +11,8 @@ int Inventory::count() const{
 }
 
 bool Inventory::has(const std::string& item) const{
-    for(auto h = m_holdingItems.begin(); h != m_holdingItems.end();){
-        if (*h == item){
+    for(const auto& i : m_holdingItems){
+        if (i == item){
             return true;
         }
     }
@@ -20,10 +20,19 @@ bool Inventory::has(const std::string& item) const{
 }
 
 void Inventory::remove(const std::string& item) {
+    bool found = false;
     for(auto h = m_holdingItems.begin(); h != m_holdingItems.end();){
         if (*h == item){
             m_holdingItems.erase(h);
+            found = true;
         }
+        else{
+            h++;
+        }
+        
+    }
+    if (found){
+        std::cout<< "didnt found anything to remove\n";
     }
     return;
 }
