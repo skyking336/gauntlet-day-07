@@ -19,6 +19,14 @@ bool Inventory::has(const std::string& item) const{
     return false;
 }
 
+void Inventory::remove(const std::string& item) {
+    for(auto h = m_holdingItems.begin(); h != m_holdingItems.end();){
+        if (*h == item){
+            m_holdingItems.erase(h);
+        }
+    }
+    return;
+}
 
 
 
