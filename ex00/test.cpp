@@ -31,3 +31,12 @@ TEST_CASE("a inventory is added then remove, so ends with 0 count") {
     REQUIRE(inv.count() == 0);       // REQUIRE aborts the case; the line below is meaningless if this fails
     CHECK_FALSE(inv.has("potion"));  // CHECK reports and continues
 }
+
+
+TEST_CASE("removing a missing item is a no-op: count unchanged, other items untouched (2 assertions).") {
+    Inventory inv;
+    inv.add("potion");
+    inv.remove("weapon");
+    REQUIRE(inv.count() == 1);       // REQUIRE aborts the case; the line below is meaningless if this fails
+    CHECK_FALSE(inv.has("potion"));  // CHECK reports and continues
+}
